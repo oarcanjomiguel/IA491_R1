@@ -38,9 +38,17 @@ public class View1 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txRobo = new javax.swing.JTextArea();
+        bSair = new javax.swing.JButton();
+        bHorario = new javax.swing.JButton();
+        bAntihorario = new javax.swing.JButton();
+        bFrente = new javax.swing.JButton();
+        bRe = new javax.swing.JButton();
+        bParar = new javax.swing.JButton();
+        bVisao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("IA941_R1");
 
         cbDificuldade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fácil", "Médio", "Difícil" }));
 
@@ -53,52 +61,195 @@ public class View1 extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txRobo.setEditable(false);
+        txRobo.setColumns(20);
+        txRobo.setLineWrap(true);
+        txRobo.setRows(5);
+        jScrollPane1.setViewportView(txRobo);
+
+        bSair.setText("Sair");
+        bSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSairActionPerformed(evt);
+            }
+        });
+
+        bHorario.setText("Sentido Horário");
+        bHorario.setEnabled(false);
+        bHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bHorarioActionPerformed(evt);
+            }
+        });
+
+        bAntihorario.setText("Sentido Anti-horário");
+        bAntihorario.setEnabled(false);
+        bAntihorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAntihorarioActionPerformed(evt);
+            }
+        });
+
+        bFrente.setText("Para Frente");
+        bFrente.setEnabled(false);
+        bFrente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bFrenteActionPerformed(evt);
+            }
+        });
+
+        bRe.setText("Marcha Ré");
+        bRe.setEnabled(false);
+        bRe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bReActionPerformed(evt);
+            }
+        });
+
+        bParar.setText("Parar");
+        bParar.setEnabled(false);
+
+        bVisao.setText("Objetos à vista");
+        bVisao.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbDificuldade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(0, 67, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(bRe, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(91, 91, 91)
+                                .addComponent(bSair))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbDificuldade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
-                .addContainerGap())
+                        .addGap(36, 36, 36)
+                        .addComponent(bHorario)
+                        .addGap(18, 18, 18)
+                        .addComponent(bParar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bAntihorario)
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bVisao)
+                        .addGap(42, 42, 42)
+                        .addComponent(bFrente)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbDificuldade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bFrente)
+                    .addComponent(bVisao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bAntihorario)
+                    .addComponent(bHorario)
+                    .addComponent(bParar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bSair)
+                    .addComponent(bRe))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    //classes
+    /*
+    class Employee {
+       private String name;
+       private int code;
+
+   // constructor
+   public Employee(String name, int code) {
+      this.name = name;
+      this.code = code;
+   }
+
+       // getter
+       public String getName() { return name; }
+       public int getCode() { return code; }
+       // setter
+
+       public void setName(String name) { this.name = name; }
+       public void setCode(int code) { this.code = code; }
+    }
+    
+    Employee[] arr = new Employee[100];  // new stands for create an array object
+    arr[0] = new Employee("Peter", 100); // new stands for create an employee object
+    arr[1] = new Employee("Mary", 90);
+    */
+    
+    class Obstaculo
+    {
+        private int Cor;
+        private int X1;
+        private int Y1;
+        private int X2;
+        private int Y2;
+        
+        //construtor
+        public Obstaculo(int Cor, int X1, int Y1, int X2, int Y2)
+        {
+            this.Cor = Cor;
+            this.X1 = X1;
+            this.Y1 = Y1;
+            this.X2 = X2;
+            this.Y2 = Y2;
+        }
+        
+        //getter
+        public int getCor() { return Cor; }
+        public int getX1() { return X1; }
+        public int getY1() { return Y1; }
+        public int getX2() { return X2; }
+        public int getY2() { return Y2; }
+        
+        //setter
+        public void setCor( int Cor) { this.Cor = Cor; }
+        public void setX1(int X1) { this.X1 = X1; }
+        public void setY1(int Y1) { this.Y1 = Y1;}
+        public void setX2(int X2) { this.X2 = X2;}
+        public void setY2(int Y2) { this.Y2 = Y2;}
+                
+    }
     
     //constantes
     int tamanhoBrick = 100;
+    int Xmax = 800;
+    int Ymax = 600;
+    String[] TipoComida = {"perecível", "não perecível"};
+    String[] CorObstaculo = {"vermelho", "verde", "azul", "amarelo", "magenta", "branco"};
+    String[] CorJoia = {"vermelha", "verde", "azul", "amarela", "magenta", "branca"};
     
     //Variaveis globais
     WS3DProxy proxy = new WS3DProxy();
     World mundo = World.getInstance();
-    
+    Obstaculo[] Obstaculos = new Obstaculo[3];
+    Creature criatura;
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
@@ -108,27 +259,100 @@ try {
      
      //criacao do mundo a partir do indice da dificuldade do combobox
      //criacao dos obstaculos
-     for(int i =0; i< dificuldade; i++)
+     for(int i =0; i<= dificuldade; i++)
      {
-         int randomX = ThreadLocalRandom.current().nextInt(0, 500);
-         int randomY = ThreadLocalRandom.current().nextInt(0, 500);
-         int randomColor = ThreadLocalRandom.current().nextInt(0, 6);
+         int randomX = ThreadLocalRandom.current().nextInt(0, Xmax);
+         int randomY = ThreadLocalRandom.current().nextInt(0, Ymax);
+         int randomColor = ThreadLocalRandom.current().nextInt(0, CorObstaculo.length);
          World.createBrick(randomColor, randomX, randomY, randomX+tamanhoBrick, randomY+tamanhoBrick);
+         Obstaculos[i] = new Obstaculo(randomColor, randomX, randomY, randomX+tamanhoBrick, randomY+tamanhoBrick);
+         txRobo.append("Obstáculo " + CorObstaculo[randomColor] + " criado em: " + randomX + ", " + randomY+ "\n");
+     }
+     
+     //ciacao das comidas
+     for(int i=0;i<5-dificuldade;i++)
+     {
+         int randomX = ThreadLocalRandom.current().nextInt(0, Xmax);
+         int randomY = ThreadLocalRandom.current().nextInt(0, Ymax);
+         int randomTipo = ThreadLocalRandom.current().nextInt(0, TipoComida.length);
+         World.createFood(randomTipo, randomX, randomY);
+         txRobo.append("Comida " + TipoComida[randomTipo] + " criado em: " + randomX + ", " + randomY+ "\n");
          
      }
-     World.createFood(0, 350, 75);
-     World.createFood(0, 100, 220);
-     World.createFood(0, 250, 210);
-     Creature c = proxy.createCreature(100,450,0);
-     c.start();
-     WorldPoint position = c.getPosition();
-     double pitch = c.getPitch();
-     double fuel = c.getFuel();
-     c.moveto(1, 250, 210);
+     
+    //ciacao das joias
+     for(int i=0;i<5-dificuldade;i++)
+     {
+         int randomX = ThreadLocalRandom.current().nextInt(0, Xmax);
+         int randomY = ThreadLocalRandom.current().nextInt(0, Ymax);
+         int randomTipo = ThreadLocalRandom.current().nextInt(0, CorJoia.length);
+         World.createJewel(randomTipo, randomX, randomY);
+         txRobo.append("Jóia " + CorJoia[randomTipo] + " criado em: " + randomX + ", " + randomY+ "\n");
+     }
+     
+     //criacao do robo
+     int randomX = ThreadLocalRandom.current().nextInt(0, Xmax);
+     int randomY = ThreadLocalRandom.current().nextInt(0, Ymax);
+     criatura = proxy.createCreature(randomX, randomY, 0);
+     txRobo.append("Robo criado em: " + randomX + ", " + randomY + "\n");
+     criatura.start();
+     
+     bFrente.setEnabled(true);
+     bRe.setEnabled(true);
+     bHorario.setEnabled(true);
+     bAntihorario.setEnabled(true);
+     bParar.setEnabled(true);
+     bVisao.setEnabled(true);
+     
+     //WorldPoint position = c.getPosition();
+     //double pitch = c.getPitch();
+     //double fuel = c.getFuel();
+     //c.moveto(1, 250, 210);
     } catch (CommandExecException e) {
      System.out.println("Erro capturado");
     }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void bSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_bSairActionPerformed
+
+    private void bFrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFrenteActionPerformed
+        try
+        {
+            criatura.start();
+            criatura.move(1, 1, 0);
+        }
+        catch (CommandExecException e ){ txRobo.append("Erro ao tentar movimentar robo\n"); }
+                
+    }//GEN-LAST:event_bFrenteActionPerformed
+
+    private void bReActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReActionPerformed
+        try
+        {
+            criatura.start();
+            criatura.move(-1, -1, 0);
+        }
+        catch (CommandExecException e ){ txRobo.append("Erro ao tentar movimentar robo\n"); }
+    }//GEN-LAST:event_bReActionPerformed
+
+    private void bHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHorarioActionPerformed
+        try
+        {
+            criatura.start();
+            criatura.rotate(1);
+        }
+        catch (CommandExecException e ){ txRobo.append("Erro ao tentar movimentar robo\n"); }
+    }//GEN-LAST:event_bHorarioActionPerformed
+
+    private void bAntihorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAntihorarioActionPerformed
+        try
+        {
+            criatura.start();
+            criatura.rotate(-1);
+        }
+        catch (CommandExecException e ){ txRobo.append("Erro ao tentar movimentar robo\n"); }
+    }//GEN-LAST:event_bAntihorarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,10 +390,17 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bAntihorario;
+    private javax.swing.JButton bFrente;
+    private javax.swing.JButton bHorario;
+    private javax.swing.JButton bParar;
+    private javax.swing.JButton bRe;
+    private javax.swing.JButton bSair;
+    private javax.swing.JButton bVisao;
     private javax.swing.JComboBox<String> cbDificuldade;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea txRobo;
     // End of variables declaration//GEN-END:variables
 }
