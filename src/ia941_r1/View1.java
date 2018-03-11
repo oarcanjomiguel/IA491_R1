@@ -6,14 +6,18 @@
 package ia941_r1;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import ws3dproxy.CommandExecException;
 import ws3dproxy.WS3DProxy;
 import ws3dproxy.model.Creature;
 import ws3dproxy.model.World;
 import ws3dproxy.model.WorldPoint;
 import java.util.concurrent.ThreadLocalRandom;
+import ws3dproxy.model.Bag;
 import ws3dproxy.model.Thing;
 
 /**
@@ -28,6 +32,7 @@ public class View1 extends javax.swing.JFrame {
     public View1() {
         
         initComponents();
+        timerStatus.scheduleAtFixedRate(task, 1000, 1000);
     }
 
     /**
@@ -50,18 +55,18 @@ public class View1 extends javax.swing.JFrame {
         bFrente = new javax.swing.JButton();
         bRe = new javax.swing.JButton();
         bParar = new javax.swing.JButton();
-        bVisao = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        bCaptura = new javax.swing.JButton();
         cbObjetos = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        bEsconde = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txBolsa = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        txStatus = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("IA941_R1");
@@ -130,35 +135,35 @@ public class View1 extends javax.swing.JFrame {
             }
         });
 
-        bVisao.setText("Objetos à vista");
-        bVisao.setEnabled(false);
-        bVisao.addActionListener(new java.awt.event.ActionListener() {
+        bCaptura.setText("Capturar objeto");
+        bCaptura.setEnabled(false);
+        bCaptura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bVisaoActionPerformed(evt);
+                bCapturaActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Capturar objeto");
-
         cbObjetos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Objetos a vista" }));
+        cbObjetos.setEnabled(false);
         cbObjetos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbObjetosActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Esconder");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        bEsconde.setText("Esconder objeto");
+        bEsconde.setEnabled(false);
+        bEsconde.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                bEscondeActionPerformed(evt);
             }
         });
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("<Bolsa vazia!>");
-        jScrollPane2.setViewportView(jTextArea1);
+        txBolsa.setEditable(false);
+        txBolsa.setColumns(20);
+        txBolsa.setRows(5);
+        txBolsa.setText("<Bolsa vazia!>");
+        jScrollPane2.setViewportView(txBolsa);
 
         jLabel2.setText("Mensagens:");
 
@@ -168,11 +173,13 @@ public class View1 extends javax.swing.JFrame {
 
         jLabel5.setText("Movimentação do robô:");
 
-        jTextArea3.setEditable(false);
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jTextArea3.setText("<Robô inexistente>");
-        jScrollPane4.setViewportView(jTextArea3);
+        txStatus.setEditable(false);
+        txStatus.setColumns(20);
+        txStatus.setRows(5);
+        txStatus.setText("<Robô inexistente>");
+        jScrollPane4.setViewportView(txStatus);
+
+        jLabel6.setText("Objetos visíveis:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,10 +199,6 @@ public class View1 extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(bVisao)
-                                .addGap(27, 27, 27)
-                                .addComponent(cbObjetos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2))
@@ -208,15 +211,21 @@ public class View1 extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)))))
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbObjetos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(bCaptura)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bEsconde)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addComponent(bRe, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bSair))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -228,13 +237,14 @@ public class View1 extends javax.swing.JFrame {
                                         .addComponent(bParar)
                                         .addGap(18, 18, 18)
                                         .addComponent(bAntihorario))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(213, 213, 213)
-                                        .addComponent(jButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton3)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(bRe, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bSair)
+                                .addGap(152, 152, 152)))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -255,17 +265,17 @@ public class View1 extends javax.swing.JFrame {
                     .addComponent(jScrollPane4)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bVisao)
-                    .addComponent(cbObjetos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbObjetos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bCaptura)
+                    .addComponent(bEsconde))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2)
-                        .addComponent(jButton3)))
-                .addGap(27, 27, 27)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bFrente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -307,6 +317,33 @@ public class View1 extends javax.swing.JFrame {
     arr[1] = new Employee("Mary", 90);
     */
     //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="exemplo timer">
+    /*
+    Timer t = new Timer();
+    t.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                System.out.println("Hi!");
+
+            }
+        }, 400);
+    */
+    //</editor-fold>
+    
+    Timer timerStatus = new Timer();
+    TimerTask task = new TimerTask() {
+        @Override
+        public void run()
+        {
+            AtualizaStatus();
+            if(ExisteRobo && PrecisaAtualizarVisao) 
+            {
+                AtualizaVisao();
+                PrecisaAtualizarVisao = false;
+            }
+        }
+    };
     class Obstaculo
     {
         private int Cor;
@@ -349,13 +386,84 @@ public class View1 extends javax.swing.JFrame {
     String[] CorObstaculo = {"vermelho", "verde", "azul", "amarelo", "magenta", "branco"};
     String[] CorJoia = {"vermelha", "verde", "azul", "amarela", "magenta", "branca"};
     String[] TipoObjeto = {" ", "obstáculo", "comida", "jóia", "ponto de troca", "gaiola"};
+    DecimalFormat formatoNumero = new DecimalFormat("#.00");
     
     //Variaveis globais
     WS3DProxy proxy = new WS3DProxy();
     World mundo = World.getInstance();
     Obstaculo[] Obstaculos = new Obstaculo[3];
     Creature criatura;
+    boolean ExisteRobo = false;
+    boolean PrecisaAtualizarVisao = false;
+    List<Thing> CoisasVisiveis;
+    
+    //funcoes auxiliares
+    private void AtualizaStatus()
+    {
+        if(ExisteRobo)
+        {
+            criatura.updateState();
+            txStatus.setText("Posicao: " + formatoNumero.format(criatura.getPosition().getX()) + ", " + formatoNumero.format(criatura.getPosition().getY()) + "\n");
+            txStatus.append("Pitch: " + formatoNumero.format(criatura.getAttributes().getPitch())+ "\n");
+            txStatus.append("Velocidade: " + criatura.getSpeed()+ "\n");
+            txStatus.append("Combustível: " + criatura.getAttributes().getFuel() + "\n");
+            txStatus.append("Endorfina: " + formatoNumero.format(criatura.getAttributes().getEndorphine())+ "\n");
+            txStatus.append("Score: " + criatura.getAttributes().getScore()+ "\n");
+            txStatus.append("Serotonina: " + criatura.getAttributes().getSerotonin()+ "\n");
+        }
+    }
+    
+    private void AtualizaVisao()
+    {
+        criatura.updateState();
+        cbObjetos.setEnabled(true);
+        cbObjetos.removeAllItems();
+        CoisasVisiveis = criatura.getThingsInVision();
+        if(CoisasVisiveis.isEmpty())
+        {
+            //txRobo.append("Nenhum objeto à vista! Será que eu fiquei cego???\n");
+            cbObjetos.addItem("Nada à vista!");
+            bCaptura.setEnabled(false);
+            bEsconde.setEnabled(false);
+        }
+        else
+        {
+            //txRobo.append("Coisas à vista:\n");
+            
+            CoisasVisiveis.forEach((coisa) -> {
+                String nome = retornaObjeto(coisa.getCategory());
+                String descricao = nome + " "+coisa.getAttributes().getColor() +" em " + coisa.getX1() + ", "+ coisa.getX2();
+                cbObjetos.addItem(descricao);
+                //txRobo.append( descricao +"\n");
+            });
+            
+            bCaptura.setEnabled(true);
+            bEsconde.setEnabled(true);
+        }
+    }
+    
+    private void AtualizaBolsa()
+    {
+        criatura.updateBag();
         
+        if(criatura.getBag().getTotalNumberCrystals()>0 || criatura.getBag().getTotalNumberFood() > 0){ txBolsa.setText(""); }
+        
+        if(criatura.getBag().getTotalNumberFood()> 0) //tem comida na bolsa
+        {
+            if(criatura.getBag().getNumberNPFood() > 0) { txBolsa.append(criatura.getBag().getNumberNPFood() + "x comida não-perecível\n"); }
+            if(criatura.getBag().getNumberPFood() > 0) { txBolsa.append(criatura.getBag().getNumberPFood() + "x comida perecível\n"); }
+        }
+        if(criatura.getBag().getTotalNumberCrystals() >0) //tem joia na bolsa
+        {
+            if(criatura.getBag().getNumberCrystalPerType("Red") > 0) {txBolsa.append(criatura.getBag().getNumberCrystalPerType("Red") + "x jóias vermelhas\n");}
+            if(criatura.getBag().getNumberCrystalPerType("Green") > 0) {txBolsa.append(criatura.getBag().getNumberCrystalPerType("Green") + "x jóias verdes\n");}
+            if(criatura.getBag().getNumberCrystalPerType("Blue") > 0) {txBolsa.append(criatura.getBag().getNumberCrystalPerType("Blue") + "x jóias azuis\n");}
+            if(criatura.getBag().getNumberCrystalPerType("Yellow") > 0) {txBolsa.append(criatura.getBag().getNumberCrystalPerType("Yellow") + "x jóias amarelas\n");}
+            if(criatura.getBag().getNumberCrystalPerType("Magenta") > 0) {txBolsa.append(criatura.getBag().getNumberCrystalPerType("Magenta") + "x jóias magenta\n");}
+            if(criatura.getBag().getNumberCrystalPerType("White") > 0) {txBolsa.append(criatura.getBag().getNumberCrystalPerType("White") + "x jóias brancas\n");}
+        }
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
 try {   
@@ -415,13 +523,20 @@ try {
      criatura = proxy.createCreature(randomX, randomY, 0);
      txRobo.append("Robo criado em: " + randomX + ", " + randomY + "\n");
      criatura.start();
+     ExisteRobo = true;
+     
+     //atualizacao dos status
+     txBolsa.setEnabled(true);
+     txStatus.setEnabled(true);
+     
+     //AtualizaStatus();
      
      bFrente.setEnabled(true);
      bRe.setEnabled(true);
      bHorario.setEnabled(true);
      bAntihorario.setEnabled(true);
      bParar.setEnabled(true);
-     bVisao.setEnabled(true);
+     //bVisao.setEnabled(true);
      
      //WorldPoint position = c.getPosition();
      //double pitch = c.getPitch();
@@ -490,47 +605,67 @@ try {
         catch (CommandExecException e ){ txRobo.append("Erro ao tentar movimentar robo\n"); }
     }//GEN-LAST:event_bAntihorarioActionPerformed
 
-    private void bVisaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVisaoActionPerformed
-        criatura.updateState();
-        List<Thing> coisas = criatura.getThingsInVision();
-        cbObjetos.removeAllItems();
-        txRobo.append("Coisas à vista:\n");
-        coisas.forEach((coisa) -> {
-            String nome = retornaObjeto(coisa.getCategory());
-            String descricao = nome + " "+coisa.getAttributes().getColor() +" em " + coisa.getX1() + ", "+ coisa.getX2();
-            cbObjetos.addItem(descricao);
-            txRobo.append( descricao +"\n");
-        });
-        
-        
-        /*
-        Categorias:
-        1 - Brick
-        2X- Comida
-            21 - comida perecivel
-            22 - comida nao perecivel
-        3 - Jewel
-        4 - Delivery spot
-        5 - Gaiola
-        */
-    }//GEN-LAST:event_bVisaoActionPerformed
-
     private void bPararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPararActionPerformed
        try
         {
             criatura.stop();
-            
+            PrecisaAtualizarVisao = true;
         }
         catch (CommandExecException e ){ txRobo.append("Erro ao tentar movimentar robo\n"); }
     }//GEN-LAST:event_bPararActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void bEscondeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEscondeActionPerformed
+        if(!CoisasVisiveis.isEmpty())
+        {
+            Thing coisa = CoisasVisiveis.get(cbObjetos.getSelectedIndex());
+            int categoria = coisa.getAttributes().getCategory();
+            if(categoria != 1 && categoria != 4 && categoria != 5)
+            {
+                try{ 
+                    criatura.hideIt(coisa.getName());
+                    //AtualizaVisao();
+                    //AtualizaBolsa();
+                    PrecisaAtualizarVisao = true;
+                }
+                catch (CommandExecException e) { txRobo.append("Erro ao tentar esconder objeto!\n"); }
+            }
+            else {txRobo.append("Não é possível esconder esse tipo de objeto!\n");}
+        }
+        else
+        {
+            txRobo.append("Não há o que esconder!\n");
+        }
+    }//GEN-LAST:event_bEscondeActionPerformed
 
     private void cbObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbObjetosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbObjetosActionPerformed
+
+    private void bCapturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCapturaActionPerformed
+        if(!CoisasVisiveis.isEmpty())
+        {
+            Thing coisa = CoisasVisiveis.get(cbObjetos.getSelectedIndex());
+            int categoria = coisa.getAttributes().getCategory();
+            if(categoria != 1 && categoria != 4 && categoria != 5)
+            {
+                try{ 
+                    criatura.putInSack(coisa.getName());
+                    for(int i=0; i<1000;i++) {}
+                    AtualizaBolsa();
+                    //AtualizaVisao();
+                    PrecisaAtualizarVisao = true;
+                }
+                catch (CommandExecException e) { txRobo.append("Erro ao tentar capturar objeto!\n"); }
+            }
+            else {txRobo.append("Não é possível capturar esse tipo de objeto!\n");}
+        }
+        else
+        {
+            txRobo.append("Não há o que capturar!\n");
+            
+        }
+        //AtualizaVisao();
+    }//GEN-LAST:event_bCapturaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -569,27 +704,27 @@ try {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAntihorario;
+    private javax.swing.JButton bCaptura;
+    private javax.swing.JButton bEsconde;
     private javax.swing.JButton bFrente;
     private javax.swing.JButton bHorario;
     private javax.swing.JButton bParar;
     private javax.swing.JButton bRe;
     private javax.swing.JButton bSair;
-    private javax.swing.JButton bVisao;
     private javax.swing.JComboBox<String> cbDificuldade;
     private javax.swing.JComboBox<String> cbObjetos;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTextArea txBolsa;
     private javax.swing.JTextArea txRobo;
+    private javax.swing.JTextArea txStatus;
     // End of variables declaration//GEN-END:variables
 }
