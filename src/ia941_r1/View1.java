@@ -46,7 +46,7 @@ public class View1 extends javax.swing.JFrame {
 
         cbDificuldade = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        bGerarMundo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txRobo = new javax.swing.JTextArea();
         bSair = new javax.swing.JButton();
@@ -67,10 +67,8 @@ public class View1 extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txStatus = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        lBolsa = new javax.swing.JList<>();
-        jButton3 = new javax.swing.JButton();
+        bComer = new javax.swing.JButton();
+        cbBolsa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("IA941_R1");
@@ -79,10 +77,10 @@ public class View1 extends javax.swing.JFrame {
 
         jLabel1.setText("Dificuldade do mundo:");
 
-        jButton1.setText("Gerar mundo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bGerarMundo.setText("Gerar mundo");
+        bGerarMundo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bGerarMundoActionPerformed(evt);
             }
         });
 
@@ -185,17 +183,21 @@ public class View1 extends javax.swing.JFrame {
 
         jLabel6.setText("Objetos visíveis:");
 
-        jButton2.setText("Comer");
-
-        lBolsa.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "<Bolsa vazia!>" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        bComer.setText("Comer");
+        bComer.setEnabled(false);
+        bComer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bComerActionPerformed(evt);
+            }
         });
-        lBolsa.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane3.setViewportView(lBolsa);
 
-        jButton3.setText("Trocar");
+        cbBolsa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bolsa vazia" }));
+        cbBolsa.setEnabled(false);
+        cbBolsa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbBolsaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,55 +211,52 @@ public class View1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbDificuldade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(11, 11, 11)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(112, 112, 112)
-                                    .addComponent(bFrente))
-                                .addComponent(jLabel5)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(bHorario)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(bParar)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(bAntihorario))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(110, 110, 110)
-                                            .addComponent(bRe, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(bSair))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbObjetos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(bCaptura)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(bEsconde)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton3)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bGerarMundo))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addComponent(bFrente))
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(bHorario)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(bParar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(bAntihorario))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(110, 110, 110)
+                                        .addComponent(bRe, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(284, 284, 284)
+                                .addComponent(bSair))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cbObjetos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bCaptura)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bEsconde))))
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(bComer, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cbBolsa, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -267,30 +266,29 @@ public class View1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbDificuldade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                    .addComponent(bGerarMundo))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane3)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbBolsa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbObjetos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(9, 9, 9)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bCaptura)
                             .addComponent(bEsconde)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3))
+                            .addComponent(bComer))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -303,10 +301,9 @@ public class View1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bRe))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
+                        .addGap(106, 106, 106)
                         .addComponent(bSair)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -425,6 +422,7 @@ public class View1 extends javax.swing.JFrame {
     String[] CorObstaculo = {"vermelho", "verde", "azul", "amarelo", "magenta", "branco"};
     String[] CorJoia = {"vermelha", "verde", "azul", "amarela", "magenta", "branca"};
     String[] TipoObjeto = {" ", "obstáculo", "comida", "jóia", "ponto de troca", "gaiola"};
+    String[] Color = { "Red", "Green", "Blue", "Yellow", "Magenta", "White" };
     DecimalFormat formatoNumero = new DecimalFormat("#.00");
     
     //Variaveis globais
@@ -435,7 +433,8 @@ public class View1 extends javax.swing.JFrame {
     boolean ExisteRobo = false;
     boolean PrecisaAtualizarVisao = false;
     List<Thing> CoisasVisiveis;
-    List<String> Bolsa = new ArrayList<String>();
+    List<ItemBolsa> Bolsa = new ArrayList<ItemBolsa>();
+    
     //funcoes auxiliares
     private void AtualizaStatus()
     {
@@ -460,20 +459,16 @@ public class View1 extends javax.swing.JFrame {
         CoisasVisiveis = criatura.getThingsInVision();
         if(CoisasVisiveis.isEmpty())
         {
-            //txRobo.append("Nenhum objeto à vista! Será que eu fiquei cego???\n");
             cbObjetos.addItem("Nada à vista!");
             bCaptura.setEnabled(false);
             bEsconde.setEnabled(false);
         }
         else
         {
-            //txRobo.append("Coisas à vista:\n");
-            
             CoisasVisiveis.forEach((coisa) -> {
                 String nome = retornaObjeto(coisa.getCategory());
-                String descricao = nome + " "+coisa.getAttributes().getColor() +" em " + coisa.getX1() + ", "+ coisa.getX2();
+                String descricao = nome + " "+RetornaCor(coisa.getAttributes().getColor()) +" em " + coisa.getX1() + ", "+ coisa.getX2();
                 cbObjetos.addItem(descricao);
-                //txRobo.append( descricao +"\n");
             });
             
             bCaptura.setEnabled(true);
@@ -485,13 +480,13 @@ public class View1 extends javax.swing.JFrame {
     {
         criatura.updateBag();
         
-        lBolsa.removeAll();
-        for(String item : Bolsa)
+        if(criatura.getBag().getTotalNumberCrystals()>0 || criatura.getBag().getTotalNumberFood() > 0)
         {
-            lBolsa.
+            txBolsa.setText("");
+            cbBolsa.setEnabled(true);
+            bComer.setEnabled(true);
+            bTrocar.setEnabled(true);
         }
-        
-        if(criatura.getBag().getTotalNumberCrystals()>0 || criatura.getBag().getTotalNumberFood() > 0){ txBolsa.setText(""); }
         
         if(criatura.getBag().getTotalNumberFood()> 0) //tem comida na bolsa
         {
@@ -527,9 +522,20 @@ public class View1 extends javax.swing.JFrame {
         return("invalido");
     }
     
-    //private String retornaDescricao()
+    private String RetornaCor(String color)
+    {
+        String cor = " ";
+        for(int i = 0; i<Color.length;i++)
+        {
+            if (Color[i].equals(color))
+            {
+                cor = CorJoia[i];
+            }
+        }
+        return cor;
+    }
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bGerarMundoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGerarMundoActionPerformed
        
 try {   
      mundo.reset();
@@ -594,15 +600,13 @@ try {
      txBolsa.setEnabled(true);
      txStatus.setEnabled(true);
      
-     //AtualizaStatus();
-     
      bFrente.setEnabled(true);
      bRe.setEnabled(true);
      bHorario.setEnabled(true);
      bAntihorario.setEnabled(true);
      bParar.setEnabled(true);
      //bVisao.setEnabled(true);
-     AtualizaVisao();
+     PrecisaAtualizarVisao = true;
      //WorldPoint position = c.getPosition();
      //double pitch = c.getPitch();
      //double fuel = c.getFuel();
@@ -610,7 +614,7 @@ try {
     } catch (CommandExecException e) {
      System.out.println("Erro capturado");
     }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bGerarMundoActionPerformed
     
             
     private void bSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSairActionPerformed
@@ -672,8 +676,6 @@ try {
             {
                 try{ 
                     criatura.hideIt(coisa.getName());
-                    //AtualizaVisao();
-                    //AtualizaBolsa();
                     PrecisaAtualizarVisao = true;
                 }
                 catch (CommandExecException e) { txRobo.append("Erro ao tentar esconder objeto!\n"); }
@@ -697,12 +699,17 @@ try {
             int categoria = coisa.getAttributes().getCategory();
             if(categoria != 1 && categoria != 4 && categoria != 5)
             {
-                try{ 
-                    //boolean add = Bolsa.add(coisa);
+                try{
                     criatura.putInSack(coisa.getName());
-                    ItemBolsa coisaNaBolsa = new ItemBolsa(coisa.getName(), coisa.getName());
-                    Bolsa.add(coisa.getName());
-                    for(int i=0; i<1000;i++) {}
+                    String desc = retornaObjeto(coisa.getAttributes().getCategory()) + " " +RetornaCor(coisa.getAttributes().getColor());
+                    String nome = coisa.getName();
+                    ItemBolsa coisaNaBolsa = new ItemBolsa(nome, desc);
+                    
+                    Bolsa.add(coisaNaBolsa);
+                    cbBolsa.removeAllItems();
+                    Bolsa.stream().forEach((_item) -> {
+                        cbBolsa.addItem(_item.getDescricao());
+                    });
                     AtualizaBolsa();
                     //AtualizaVisao();
                     PrecisaAtualizarVisao = true;
@@ -714,10 +721,35 @@ try {
         else
         {
             txRobo.append("Não há o que capturar!\n");
-            
         }
-        //AtualizaVisao();
     }//GEN-LAST:event_bCapturaActionPerformed
+
+    private void cbBolsaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBolsaActionPerformed
+
+        //if(cbBolsa.getSelectedItem())
+    }//GEN-LAST:event_cbBolsaActionPerformed
+
+    private void bComerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bComerActionPerformed
+        ItemBolsa elemento;
+        int ind = cbBolsa.getSelectedIndex();
+        elemento = Bolsa.get(ind);
+        if(elemento.getNome().contains("Food"))
+        {
+            try
+            {
+                criatura.eatIt(elemento.getNome());
+                txRobo.append(elemento.getNome() + " comida\n");
+                //Bolsa.remove(ind);
+                //cbBolsa.removeItemAt(ind);
+                AtualizaBolsa();
+            }
+            catch (CommandExecException e)
+            {
+                
+            }
+        }
+        bComer.setEnabled(true);
+    }//GEN-LAST:event_bComerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -757,17 +789,17 @@ try {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAntihorario;
     private javax.swing.JButton bCaptura;
+    private javax.swing.JButton bComer;
     private javax.swing.JButton bEsconde;
     private javax.swing.JButton bFrente;
+    private javax.swing.JButton bGerarMundo;
     private javax.swing.JButton bHorario;
     private javax.swing.JButton bParar;
     private javax.swing.JButton bRe;
     private javax.swing.JButton bSair;
+    private javax.swing.JComboBox<String> cbBolsa;
     private javax.swing.JComboBox<String> cbDificuldade;
     private javax.swing.JComboBox<String> cbObjetos;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -776,9 +808,7 @@ try {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JList<String> lBolsa;
     private javax.swing.JTextArea txBolsa;
     private javax.swing.JTextArea txRobo;
     private javax.swing.JTextArea txStatus;
